@@ -20,7 +20,7 @@ struct Linked_List Linked_List() {
     return temp;
 }
 
-struct node* init(int data) {
+struct node* init(const int data) {
     struct node* temp = malloc(sizeof(struct node));
     temp->data = data;
     return temp;
@@ -88,6 +88,26 @@ struct node* pop(struct Linked_List* LL) {
     return temp;
 }
 
+void reverse(struct Linked_List* LL) {
+    struct node *next_node;
+    struct node *previous_node = NULL;
+    LL->tail = next_node = LL->head;
+    while (next_node != NULL) {
+        struct node *current = next_node;
+        next_node = current->next;
+        current->next = previous_node;
+        previous_node = current;
+    }
+    LL->head = previous_node;
+}
+
+void status(const struct Linked_List* LL) {
+    if (LL->head == NULL) {
+        return;
+    }
+    printf("\nLinked list status:\nHead: %d\nTail: %d\nSize: %d\n", LL->head->data, LL->tail->data, LL->size);
+}
+
 void print(const struct Linked_List LL) {
     const struct node* temp = LL.head;
     while (temp != NULL) {
@@ -108,8 +128,11 @@ int main() {
     append(&LL, 30);
     pop_first(&LL);
     prepend(&LL, 90);
-
     print(LL);
+    status(&LL);
+    reverse(&LL);
+    print(LL);
+    status(&LL);
 
     return 0;
 }
