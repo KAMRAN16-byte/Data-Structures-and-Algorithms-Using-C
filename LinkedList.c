@@ -26,33 +26,54 @@ struct node* init(int data) {
     return temp;
 }
 
-int append(struct Linked_List LL, const int data) {
+int append(struct Linked_List* LL, const int data) {
     struct node* temp = init(data);
-    if (LL.head == NULL) {
-        LL.head = LL.tail = temp;
+    if (LL->head == NULL) {
+        LL->head = LL->tail = temp;
     }
     else {
-        LL.tail = temp;
+        LL->tail->next = temp;
+        LL->tail = temp;
     }
     temp->next = NULL;
-    LL.size ++;
+    LL->size ++;
     return 1;
 }
 
-struct node* pop(struct Linked_List LL) {
-    struct node* temp = LL.tail;
-    if (LL.head == LL.tail) {
-        LL.head = LL.tail = NULL;
+struct node* pop(struct Linked_List* LL) {
+    struct node* temp = LL->tail;
+    if (LL->head == LL->tail) {
+        LL->head = LL->tail = NULL;
     }
     else {
-        struct node* temp_ = LL.head;
-        while (temp->next != LL.tail) {
+        struct node* temp_ = LL->head;
+        while (temp->next != LL->tail) {
             temp = temp->next;
         }
-        LL.tail = temp_;
-        LL.tail->next = NULL;
+        LL->tail = temp_;
+        LL->tail->next = NULL;
     }
-    LL.size --;
+    LL->size --;
     return temp;
 }
 
+void print(const struct Linked_List LL) {
+    const struct node* temp = LL.head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+
+int main() {
+    setbuf(stdout, NULL);
+    struct Linked_List LL = Linked_List();
+    append(&LL, 10);
+    append(&LL, 20);
+    append(&LL, 30);
+    print(LL);
+
+    return 0;
+}
