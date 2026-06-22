@@ -138,30 +138,7 @@ void print(const struct Linked_List LL) {
     printf("\n");
 }
 
-void partition_list(struct Linked_List* LL, const int value) {
-    struct node *prev1,*prev2,*dummy1,*dummy2,*current;
-    prev1 = dummy1 = init(0);
-    prev2 = dummy2 = init(0);
-    current = LL->head;
-    while (current != NULL) {
-        if (current->data < value) {
-            prev1->next = current;
-            prev1 = current;
-            current = current->next;
-            prev1->next = NULL;
-        }
-        else {
-            prev2->next = current;
-            prev2 = current;
-            current = current->next;
-            prev2->next = NULL;
-        }
-    }
-    prev1->next = dummy2->next;
-    LL->head = dummy1->next;
-    free(dummy1);
-    free(dummy2);
-}
+
 
 int main() {
     setbuf(stdout, NULL);
@@ -175,7 +152,6 @@ int main() {
     print(LL);
     printf("\n");
     status(&LL);
-    partition_list(&LL, 4);
     status(&LL);
     print(LL);
 
