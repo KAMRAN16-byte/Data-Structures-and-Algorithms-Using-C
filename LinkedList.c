@@ -22,6 +22,7 @@ struct Linked_List Linked_List() {
 
 struct node* init(const int data) {
     struct node* temp = malloc(sizeof(struct node));
+    temp->next = NULL;
     temp->data = data;
     return temp;
 }
@@ -35,7 +36,6 @@ int append(struct Linked_List* LL, const int data) {
         LL->tail->next = temp;
         LL->tail = temp;
     }
-    temp->next = NULL;
     LL->size ++;
     return 1;
 }
@@ -101,6 +101,27 @@ void reverse(struct Linked_List* LL) {
     LL->head = previous_node;
 }
 
+void remove_Duplicates(struct Linked_List* LL) {
+    struct node* current = LL->head;
+    while (current->next != NULL) {
+        struct node* previous = current;
+        struct node* runner = current->next;
+        while (runner != NULL) {
+            if (runner->data == current->data) {
+                previous->next = runner->next;
+                printf("\nRemoved duplicate element: %d\n", runner->data);
+                free(runner);
+                LL->size --;
+            }
+            else
+                previous = runner;
+            runner = previous->next;
+        }
+        current = current->next;
+    }
+    LL->tail = current;
+}
+
 void status(const struct Linked_List* LL) {
     if (LL->head == NULL) {
         return;
@@ -117,22 +138,46 @@ void print(const struct Linked_List LL) {
     printf("\n");
 }
 
+void partition_list(struct Linked_List* LL, const int value) {
+    struct node *prev1,*prev2,*dummy1,*dummy2,*current;
+    prev1 = dummy1 = init(0);
+    prev2 = dummy2 = init(0);
+    current = LL->head;
+    while (current != NULL) {
+        if (current->data < value) {
+            prev1->next = current;
+            prev1 = current;
+            current = current->next;
+            prev1->next = NULL;
+        }
+        else {
+            prev2->next = current;
+            prev2 = current;
+            current = current->next;
+            prev2->next = NULL;
+        }
+    }
+    prev1->next = dummy2->next;
+    LL->head = dummy1->next;
+    free(dummy1);
+    free(dummy2);
+}
 
 int main() {
     setbuf(stdout, NULL);
     struct Linked_List LL = Linked_List();
+    append(&LL, 3);
+    append(&LL, 8);
+    append(&LL, 5);
     append(&LL, 10);
-    append(&LL, 20);
-    pop(&LL);
-    prepend(&LL, 80);
-    append(&LL, 30);
-    pop_first(&LL);
-    prepend(&LL, 90);
+    append(&LL, 2);
+    append(&LL, 1);
     print(LL);
+    printf("\n");
     status(&LL);
-    reverse(&LL);
+    partition_list(&LL, 4);
+    status(&LL);
     print(LL);
-    status(&LL);
 
     return 0;
 }
