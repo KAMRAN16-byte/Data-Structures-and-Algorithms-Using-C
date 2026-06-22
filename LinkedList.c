@@ -163,21 +163,27 @@ void partition_list(struct Linked_List* LL, const int value) {
     free(dummy2);
 }
 
-int main() {
-    setbuf(stdout, NULL);
-    struct Linked_List LL = Linked_List();
-    append(&LL, 3);
-    append(&LL, 8);
-    append(&LL, 5);
-    append(&LL, 10);
-    append(&LL, 2);
-    append(&LL, 1);
-    print(LL);
-    printf("\n");
-    status(&LL);
-    partition_list(&LL, 4);
-    status(&LL);
-    print(LL);
+struct node* get(struct Linked_List* LL,int index) {
+    if (index < 0) {
+        index += LL->size;
+    }
+    if ( index > LL->size) {
+        return NULL;
+    }
+    struct node* temp = LL->head;
+    for (int i = 0; i < index; i++) {
+        temp = temp->next;
+    }
+    return temp;
+}
 
-    return 0;
+int set(struct Linked_List* LL,int index, const int data) {
+    if (index < 0) {
+        index += LL->size;
+    }
+    if ( index > LL->size) {
+        return 0;
+    }
+    get(LL,index)->data = data;
+    return 1;
 }
