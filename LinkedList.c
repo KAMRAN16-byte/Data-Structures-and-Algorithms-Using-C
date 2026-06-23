@@ -232,7 +232,6 @@ void swap_node(struct Linked_List* LL) {
 
 int main() {
     struct Linked_List LL = Linked_List();
-
-
+    
     return 0;
 }
