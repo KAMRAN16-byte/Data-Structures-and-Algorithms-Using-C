@@ -272,16 +272,6 @@ int insert_at(struct Linked_List* LL, const int index, const int data) {
 
 int main() {
     struct Linked_List LL = Linked_List();
-    append(&LL,1);
-    append(&LL,2);
-    append(&LL,3);
-    append(&LL,4);
-    append(&LL,5);
-    append(&LL,6);
-    status(&LL);
-    insert_at(&LL,0,1);
-    insert_at(&LL,3,1);
-    status(&LL);
-    print(LL);
+
     return 0;
 }
