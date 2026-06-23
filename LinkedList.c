@@ -270,8 +270,35 @@ int insert_at(struct Linked_List* LL, const int index, const int data) {
     return 1;
 }
 
+struct node* remove_at(struct Linked_List* LL, const int index) {
+    if (index < 0 || index >= LL->size) {
+        return NULL;
+    }
+    if (index == 0) {
+        return pop_first(LL);
+    }
+    if (index == LL->size-1) {
+        return pop(LL);
+    }
+    struct node* prev_node = get(LL,index-1);
+    struct node* to_remove = prev_node->next;
+    prev_node->next = to_remove->next;
+    to_remove->next = NULL;
+    LL->size--;
+    return to_remove;
+}
+
 int main() {
     struct Linked_List LL = Linked_List();
-
+    append(&LL,1);
+    append(&LL,2);
+    append(&LL,3);
+    append(&LL,4);
+    append(&LL,5);
+    append(&LL,6);
+    print(LL);
+    remove_at(&LL,LL.size-2);
+    status(&LL);
+    print(LL);
     return 0;
 }
