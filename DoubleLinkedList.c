@@ -42,9 +42,38 @@ int append(struct DoubleLinkedList* DLL, const int data) {
     return 1;
 }
 
+struct node* pop(struct DoubleLinkedList* DLL) {
+    struct node* temp = DLL->tail;
+    if (DLL->head == DLL->tail) {
+        DLL->head = DLL->tail = NULL;
+        DLL->size = 0;
+    }
+    else {
+        DLL->tail = DLL->tail->prev;
+        (DLL->tail->next)->prev = NULL;
+        DLL->tail->next = NULL;
+        DLL->size--;
+    }
+    return temp;
+}
+
+void print(const struct DoubleLinkedList DLL) {
+    const struct node* temp = DLL.head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+}
+
 int main() {
     struct DoubleLinkedList DLL = DoubleLinkedList();
-
+    append(&DLL,1);
+    append(&DLL,2);
+    append(&DLL,3);
+    append(&DLL,4);
+    pop(&DLL);
+    append(&DLL,5);
+    print(DLL);
     return 0;
 }
 
