@@ -252,13 +252,16 @@ void reverse_range(struct Linked_List* LL, int start, int end) {
     free(dummy);
 }
 
-int insert_at(struct Linked_List* LL, int index, int data) {
-    if (index < 0 || index > LL->size)
+int insert_at(struct Linked_List* LL, const int index, const int data) {
+    if (index < 0 || index > LL->size) {
         return -1;
-    if (index == 0)
-       return prepend(LL,data);
-    if (index == LL->size)
+    }
+    if (index == 0) {
+        return prepend(LL,data);
+    }
+    if (index == LL->size) {
         return append(LL,data);
+    }
     struct node* new_node = init(data);
     struct node* prev_node = get(LL,index-1);
     new_node->next = prev_node->next;
