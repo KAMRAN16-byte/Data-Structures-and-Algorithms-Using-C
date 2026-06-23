@@ -230,6 +230,26 @@ void swap_node(struct Linked_List* LL) {
     free(dummy);
 }
 
+void reverse_range(struct Linked_List* LL, int start, int end) {
+    if (start > LL->size)
+        return;
+    if (end > LL->size)
+        end = LL->size;
+    struct node *prev,*dummy;
+    dummy = init(0);
+    dummy->next = LL->head;
+    prev = dummy;
+    for (int i = 0; i <= start; i++) {
+        prev=prev->next;
+    }
+    for (int i = 0; i < end-start; i++) {
+        
+    }
+
+
+
+}
+
 int main() {
     struct Linked_List LL = Linked_List();
 
