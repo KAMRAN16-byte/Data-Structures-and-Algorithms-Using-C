@@ -213,12 +213,12 @@ int has_loop(struct Linked_List* LL) {
 }
 
 void swap_node(struct Linked_List* LL) {
-    struct node *dummy,*prev,*current,*next;
+    struct node *dummy,*prev,*current,*next_node;
     dummy = prev = init(0);
     dummy->next = LL->head;
     current = prev->next;
     while (current != NULL && current->next != NULL) {
-        struct node* next_node = current->next;
+        next_node = current->next;
         current->next = next_node->next;
         prev->next = next_node;
         next_node->next = current;
@@ -232,6 +232,6 @@ void swap_node(struct Linked_List* LL) {
 
 int main() {
     struct Linked_List LL = Linked_List();
-    
+
     return 0;
 }
