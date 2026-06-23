@@ -231,27 +231,37 @@ void swap_node(struct Linked_List* LL) {
 }
 
 void reverse_range(struct Linked_List* LL, int start, int end) {
-    if (start > LL->size)
+    if (start > LL->size || end > LL->size-1)
         return;
-    if (end > LL->size)
-        end = LL->size;
-    struct node *prev,*dummy;
+    struct node *prev,*dummy,*current,*to_move;
     dummy = init(0);
     dummy->next = LL->head;
-    prev = dummy;
-    for (int i = 0; i <= start; i++) {
+    current = prev = dummy;
+    for (int i = 0; i < start; i++) {
         prev=prev->next;
     }
-    for (int i = 0; i < end-start; i++) {
-        
+    current = prev->next;
+    for (int i = 0; i < end-start; i++) { //end is included
+        to_move = current->next;
+        current->next = to_move->next;
+        to_move->next = prev->next;
+        prev->next = to_move;
     }
-
-
-
+    LL->head = dummy->next;
+    LL->tail = NULL;
+    free(dummy);
 }
 
 int main() {
     struct Linked_List LL = Linked_List();
-
+    append(&LL,1);
+    append(&LL,2);
+    append(&LL,3);
+    append(&LL,4);
+    append(&LL,5);
+    append(&LL,6);
+    status(&LL);
+    reverse_range(&LL,1,3);
+    print(LL);
     return 0;
 }
