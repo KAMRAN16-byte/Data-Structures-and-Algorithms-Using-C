@@ -254,7 +254,7 @@ void reverse_range(struct Linked_List* LL, int start, int end) {
 
 int insert_at(struct Linked_List* LL, const int index, const int data) {
     if (index < 0 || index > LL->size) {
-        return -1;
+        return 0;
     }
     if (index == 0) {
         return prepend(LL,data);
