@@ -187,3 +187,58 @@ int set(struct Linked_List* LL,int index, const int data) {
     get(LL,index)->data = data;
     return 1;
 }
+
+struct node* middel_node(const struct Linked_List* LL) {
+    struct node *fast,*slow;
+    slow = fast = LL->head;
+    while (fast != NULL) {
+        if (fast->next == NULL)
+            break;
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow;
+}
+
+int has_loop(struct Linked_List* LL) {
+    struct node *slow,*fast;
+    slow = fast = LL->head;
+    while (fast != NULL && fast->next != NULL) {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (fast == slow)
+            return 1;
+    }
+    return 0;
+}
+
+void swap_node(struct Linked_List* LL) {
+    struct node *dummy,*prev,*current,*next;
+    dummy = prev = init(0);
+    dummy->next = LL->head;
+    current = prev->next;
+    while (current != NULL && current->next != NULL) {
+        struct node* next_node = current->next;
+        current->next = next_node->next;
+        prev->next = next_node;
+        next_node->next = current;
+        prev = current;
+        current = prev->next;
+    }
+    LL->head = dummy->next;
+    LL->tail = prev;
+    free(dummy);
+}
+
+int main() {
+    struct Linked_List LL = Linked_List();
+    append(&LL,1);
+    append(&LL,2);
+
+    print(LL);
+    swap_node(&LL);
+    status(&LL);
+    print(LL);
+
+    return 0;
+}
