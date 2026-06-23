@@ -230,7 +230,6 @@ void swap_node(struct Linked_List* LL) {
     free(dummy);
 }
 
-
 int main() {
     struct Linked_List LL = Linked_List();
     append(&LL,1);
