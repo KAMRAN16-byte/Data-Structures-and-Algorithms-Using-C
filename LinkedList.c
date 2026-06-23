@@ -288,6 +288,21 @@ struct node* remove_at(struct Linked_List* LL, const int index) {
     return to_remove;
 }
 
+struct node* Kth_Node(struct Linked_List* LL,int index) {
+    struct node *fast,*slow;
+    slow = fast = LL->head;
+    for (int i = 0; i < index; i++) {
+        fast = fast->next;
+    }
+    while (fast != NULL) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return slow;
+
+
+}
+
 int main() {
     struct Linked_List LL = Linked_List();
     append(&LL,1);
@@ -297,8 +312,8 @@ int main() {
     append(&LL,5);
     append(&LL,6);
     print(LL);
-    remove_at(&LL,LL.size-2);
-    status(&LL);
-    print(LL);
+    if (Kth_Node(&LL,3)) {
+        printf("%d",Kth_Node(&LL,3)->data);
+    }
     return 0;
 }
