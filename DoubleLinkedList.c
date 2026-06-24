@@ -57,6 +57,21 @@ struct node* pop(struct DoubleLinkedList* DLL) {
     return temp;
 }
 
+struct node* pop_first(struct DoubleLinkedList* DLL) {
+    struct node* temp = DLL->head;
+    if (DLL->head == DLL->tail) {
+        DLL->head = DLL->tail = NULL;
+        DLL->size = 0;
+    }
+    else {
+        DLL->head->next->prev = NULL;
+        DLL->head = DLL->head->next;
+        temp->next = NULL;
+        DLL->size--;
+    }
+    return temp;
+
+}
 
 int prepend(struct DoubleLinkedList* DLL, const int data) {
     struct node* new_node = init(data);
