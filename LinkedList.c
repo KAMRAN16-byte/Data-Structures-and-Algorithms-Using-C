@@ -288,7 +288,7 @@ struct node* remove_at(struct Linked_List* LL, const int index) {
     return to_remove;
 }
 
-struct node* Kth_Node(struct Linked_List* LL,int index) {
+struct node* Kth_Node(const struct Linked_List* LL, const int index) {
     struct node *fast,*slow;
     slow = fast = LL->head;
     for (int i = 0; i < index; i++) {
@@ -305,15 +305,16 @@ struct node* Kth_Node(struct Linked_List* LL,int index) {
 
 int main() {
     struct Linked_List LL = Linked_List();
-    append(&LL,1);
-    append(&LL,2);
-    append(&LL,3);
-    append(&LL,4);
-    append(&LL,5);
-    append(&LL,6);
-    print(LL);
-    if (Kth_Node(&LL,3)) {
-        printf("%d",Kth_Node(&LL,3)->data);
-    }
-    return 0;
+        printf(
+    "   _____   _                   _          _        _           _                 _   _   _         _\n"
+    "  / ____| (_)                 | |        | |      (_)         | |               | | | | (_)       | |\n"
+    " | (___    _   _ __     __ _  | |   ___  | |       _   _ __   | | __   ___    __| | | |  _   ___  | |_\n"
+    "  \\___ \\  | | | '_ \\   / _` | | |  / _ \\ | |      | | | '_ \\  | |/ /  / _ \\  / _` | | | | | / __| | __|\n"
+    "  ____) | | | | | | | | (_| | | | |  __/ | |____  | | | | | | |   <  |  __/ | (_| | | | | | \\__ \\ | |_\n"
+    " |_____/  |_| |_| |_|  \\__, | |_|  \\___| |______| |_| |_| |_| |_|\\_\\  \\___|  \\__,_| |_| |_| |___/  \\__|\n"
+    "                        __/ |\n"
+    "                       |___/\n"
+        );
+
+        return 0;
 }
