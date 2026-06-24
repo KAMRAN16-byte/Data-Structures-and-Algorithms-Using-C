@@ -73,6 +73,21 @@ struct node* pop_first(struct DoubleLinkedList* DLL) {
 
 }
 
+struct node* remove_at(struct DoubleLinkedList* DLL, const int index) {
+    if (index == 0)
+        return pop_first(DLL);
+    if (index == DLL->size-1)
+        return pop(DLL);
+    struct node* temp = DLL->head;
+    for (int i = 0; i <= index; i++) {
+        temp = temp->next;
+    }
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    temp->prev = temp->next = NULL;
+    return temp;
+}
+
 int prepend(struct DoubleLinkedList* DLL, const int data) {
     struct node* new_node = init(data);
     if (DLL->head == NULL) {
@@ -108,6 +123,7 @@ int insert_at(struct DoubleLinkedList* DLL, const int data, const int index) {
     new_node->prev = temp->prev;
     new_node->next = temp;
     temp->prev = new_node;
+    DLL->size ++;
     return 1;
 }
 
@@ -123,7 +139,7 @@ void status(const struct DoubleLinkedList* DLL) {
     if (DLL->head == NULL) {
         return;
     }
-    printf("");
+    printf("Head: %d\nTail: %d\nSize: %d\n", DLL->head->data, DLL->tail->data, DLL->size);
 }
 
 int main() {
@@ -134,7 +150,7 @@ int main() {
     append(&DLL,4);
     append(&DLL,5);
     insert_at(&DLL,6,2);
-    pop_first(&DLL);
+    status(&DLL);
     print(DLL);
     return 0;
 }
