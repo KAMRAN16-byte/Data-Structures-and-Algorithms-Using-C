@@ -73,15 +73,30 @@ struct node* pop_first(struct DoubleLinkedList* DLL) {
 
 }
 
+struct node* get(struct DoubleLinkedList* DLL, const int index) {
+    struct node* temp = DLL->head;
+    if (index < 0 || index >= DLL->size)
+        return NULL;
+    for (int i = 0; i < index; i++) {
+        temp = temp->next;
+    }
+    return temp;
+}
+
+void set_value(struct DoubleLinkedList* DLL, const int index, const int value) {
+    if (index < 0 || index >= DLL->size)
+        return;
+    get(DLL, index)->data = value;
+}
+
 struct node* remove_at(struct DoubleLinkedList* DLL, const int index) {
+    if (index < 0 || index >= DLL->size)
+        return NULL;
     if (index == 0)
         return pop_first(DLL);
     if (index == DLL->size-1)
         return pop(DLL);
-    struct node* temp = DLL->head;
-    for (int i = 0; i <= index; i++) {
-        temp = temp->next;
-    }
+    struct node* temp = get(DLL, index);
     temp->prev->next = temp->next;
     temp->next->prev = temp->prev;
     temp->prev = temp->next = NULL;
@@ -105,6 +120,7 @@ int prepend(struct DoubleLinkedList* DLL, const int data) {
     return 1;
 }
 
+
 int insert_at(struct DoubleLinkedList* DLL, const int data, const int index) {
     if (index < 0 || index > DLL->size) {
         return 0;
@@ -116,10 +132,7 @@ int insert_at(struct DoubleLinkedList* DLL, const int data, const int index) {
         append(DLL,data);
     }
     struct node* new_node = init(data);
-    struct node* temp = DLL->head;
-    for (int i = 0; i < index; i++) {
-        temp = temp->next;
-    }
+    struct node* temp = get(DLL,index);
     (temp->prev)->next = new_node;
     new_node->prev = temp->prev;
     new_node->next = temp;
@@ -134,6 +147,7 @@ void print(const struct DoubleLinkedList DLL) {
         printf("%d ", temp->data);
         temp = temp->next;
     }
+    printf("\n");
 }
 
 void status(const struct DoubleLinkedList* DLL) {
@@ -151,6 +165,9 @@ int main() {
     append(&DLL,4);
     append(&DLL,5);
     insert_at(&DLL,6,2);
+    print(DLL);
+    remove_at(&DLL,3);
+    set_value(&DLL,2,3);
     status(&DLL);
     print(DLL);
     return 0;
