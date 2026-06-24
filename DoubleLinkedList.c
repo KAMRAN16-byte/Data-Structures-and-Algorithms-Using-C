@@ -74,6 +74,27 @@ int prepend(struct DoubleLinkedList* DLL, const int data) {
     return 1;
 }
 
+int insert_at(struct DoubleLinkedList* DLL, const int data, const int index) {
+    if (index < 0 || index > DLL->size) {
+        return 0;
+    }
+    if (index == 0) {
+        return prepend(DLL,data);
+    }
+    if (index == DLL->size) {
+        append(DLL,data);
+    }
+    struct node* new_node = init(data);
+    struct node* temp = DLL->head;
+    for (int i = 0; i < index; i++) {
+        temp = temp->next;
+    }
+    (temp->prev)->next = new_node;
+    new_node->prev = temp->prev;
+    new_node->next = temp;
+    temp->prev = new_node;
+    return 1;
+}
 
 void print(const struct DoubleLinkedList DLL) {
     const struct node* temp = DLL.head;
