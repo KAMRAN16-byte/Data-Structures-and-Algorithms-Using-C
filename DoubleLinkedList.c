@@ -57,6 +57,24 @@ struct node* pop(struct DoubleLinkedList* DLL) {
     return temp;
 }
 
+
+int prepend(struct DoubleLinkedList* DLL, const int data) {
+    struct node* new_node = init(data);
+    if (DLL->head == NULL) {
+        new_node->next = NULL;
+        DLL->head = DLL->tail = new_node;
+    }
+    else {
+        new_node->next = DLL->head;
+        DLL->head->prev = new_node;
+        DLL->head = new_node;
+    }
+    new_node->prev = NULL;
+    DLL->size ++;
+    return 1;
+}
+
+
 void print(const struct DoubleLinkedList DLL) {
     const struct node* temp = DLL.head;
     while (temp != NULL) {
@@ -65,14 +83,22 @@ void print(const struct DoubleLinkedList DLL) {
     }
 }
 
+void status(const struct DoubleLinkedList* DLL) {
+    if (DLL->head == NULL) {
+        return;
+    }
+    printf("");
+}
+
 int main() {
     struct DoubleLinkedList DLL = DoubleLinkedList();
     append(&DLL,1);
     append(&DLL,2);
     append(&DLL,3);
     append(&DLL,4);
-    pop(&DLL);
     append(&DLL,5);
+    insert_at(&DLL,6,2);
+    pop_first(&DLL);
     print(DLL);
     return 0;
 }
