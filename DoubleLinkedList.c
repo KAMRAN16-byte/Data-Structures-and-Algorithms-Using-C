@@ -85,6 +85,7 @@ struct node* remove_at(struct DoubleLinkedList* DLL, const int index) {
     temp->prev->next = temp->next;
     temp->next->prev = temp->prev;
     temp->prev = temp->next = NULL;
+    DLL->size --;
     return temp;
 }
 
