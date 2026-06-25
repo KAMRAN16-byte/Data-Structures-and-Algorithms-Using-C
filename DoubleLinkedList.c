@@ -157,7 +157,31 @@ void status(const struct DoubleLinkedList* DLL) {
     printf("Head: %d\nTail: %d\nSize: %d\n", DLL->head->data, DLL->tail->data, DLL->size);
 }
 
+void swap_node(struct DoubleLinkedList* DLL) {
+    struct node *prev_node, *first_node,*second_node;
+    struct node* dummy = init(0);
+    dummy->next = DLL->head;
+    prev_node = dummy;
+    first_node = prev_node->next;
+    while (first_node != NULL && first_node->next != NULL) {
+        second_node = first_node->next;
+        first_node->next = second_node->next;
+        second_node->next = first_node;
+        second_node->prev = first_node->prev;
+        prev_node->next = first_node->prev = second_node;
+        if (first_node->next != NULL)
+            (first_node->next)->prev = first_node;
+        prev_node = first_node;
+        first_node = prev_node->next;
+    }
+    DLL->head = dummy->next;
+    DLL->tail = prev_node;
+    free(dummy);
+}
+
+
 int main() {
+    setbuf(stdout, NULL);
     struct DoubleLinkedList DLL = DoubleLinkedList();
     append(&DLL,1);
     append(&DLL,2);
@@ -168,6 +192,10 @@ int main() {
     print(DLL);
     remove_at(&DLL,3);
     set_value(&DLL,2,3);
+    append(&DLL,6);
+    status(&DLL);
+    print(DLL);
+    swap_node(&DLL);
     status(&DLL);
     print(DLL);
     return 0;
